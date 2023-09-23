@@ -1,5 +1,7 @@
+'use client'
 import styles from '@/app/contactus/contact.module.css'
-import {Mulish} from "next/font/google";
+import { Mulish } from "next/font/google";
+import { useState } from 'react';
 const mulish = Mulish({
     subsets: ['latin'],
     display: 'swap',
@@ -7,8 +9,24 @@ const mulish = Mulish({
 })
 
 export default function ContactForm() {
+
+    const[user, setUser] = useState({
+        username:"",
+        email:"",
+        phone:"",
+        message:""
+    })
+
+    
+    function handleChange(e) {
+        const name = e.target.name;
+        const value = e.target.value;
+
+        setUser((prevUser) => ({...prevUser, [name] : value}));
+    }
+    
     return (
-        <form className={styles.contact_form}>
+        <form className={styles.contact_form} >
 
             <div className={styles.input_field}>
                 <label htmlFor="username" className={styles.label}>
@@ -17,6 +35,8 @@ export default function ContactForm() {
                         placeholder="Enter your name"
                         className={mulish.className}
                         required
+                        value={user.username}
+                        onChange={handleChange}
                     />
                 </label>
             </div>
@@ -28,6 +48,8 @@ export default function ContactForm() {
                         placeholder="Enter your email"
                         className={mulish.className}
                         required
+                        value={user.email}
+                        onChange={handleChange}
                         autoComplete="off"
                     />
                 </label>
@@ -40,6 +62,8 @@ export default function ContactForm() {
                         placeholder="Enter your phone"
                         className={mulish.className}
                         required
+                        value={user.phone}
+                        onChange={handleChange}
                         autoComplete="off"
                     />
                 </label>
@@ -52,12 +76,14 @@ export default function ContactForm() {
                         placeholder="Enter your Message"
                         className={mulish.className}
                         required
+                        value={user.message}
+                        onChange={handleChange}
                         autoComplete="off"
                     />
                 </label>
             </div>
             <div>
-               <button type="submit" className={mulish.className}>Send Message</button>
+                <button type="submit" className={mulish.className}>Send Message</button>
             </div>
         </form>
 
